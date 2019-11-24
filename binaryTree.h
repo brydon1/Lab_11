@@ -289,10 +289,12 @@ int binaryTreeType<elemType>::max(int x, int y) const
 template <class elemType>
 int binaryTreeType<elemType>::nodeCount(binaryTreeNode<elemType> *p) const
 {
-    cout << "Write the definition of the function nodeCount"
-         << endl;
-
-    return 0;
+    result = 0;
+    if (p != NULL)
+    {
+        sum += nodeCount(p->llink) + nodeCount(p->rlink) + 1;
+    }
+    return result;
 }
 
 template <class elemType>
