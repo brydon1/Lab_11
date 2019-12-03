@@ -310,13 +310,15 @@ int binaryTreeType<elemType>::max(int x, int y) const
         return y;
 }
 
+// ADDED *********************************************************************
+
 template <class elemType>
 int binaryTreeType<elemType>::nodeCount(binaryTreeNode<elemType> *p) const
 {
     result = 0;
     if (p != NULL)
     {
-        sum += nodeCount(p->llink) + nodeCount(p->rlink) + 1;
+        result += nodeCount(p->llink) + nodeCount(p->rlink) + 1;
     }
     return result;
 }
@@ -324,21 +326,29 @@ int binaryTreeType<elemType>::nodeCount(binaryTreeNode<elemType> *p) const
 template <class elemType>
 int binaryTreeType<elemType>::leavesCount(binaryTreeNode<elemType> *p) const
 {
-    cout << "Write the definition of the function leavesCount"
-         << endl;
-
-    return 0;
+    result = 0;
+    if (p != NULL)
+    {
+        if (p->llink == NULL && p->rlink == NULL){
+          result++;
+        }
+        else
+          result += leavesCount(p->llink) + leavesCount(p->rlink);
+    }
+    return result;
 }
 
-// ADDED *********************************************************************
-
 template <class elemType>
-int binaryTreeType<elemType>::swapSubtrees(binaryTreeNode<elemType> *p) const
+void binaryTreeType<elemType>::swapSubtrees(binaryTreeNode<elemType> *p) const
 {
-    cout << "Write the definition of the function swapSubtrees"
-         << endl;
+    binaryTreeNode<elemType> *temp = p->llink;
 
-    return 0;
+    if (p != NULL){
+      p->llink = p->rlink;
+      p->rlink = temp;
+      swapSubtrees(p->llink);
+      swapSubtrees(p->rlink);
+    } 
 }
 
 template <class elemType>
