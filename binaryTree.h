@@ -1,4 +1,11 @@
-//Header File Binary Search Tree
+// **********************************************************
+// Authors: Michaela Brydon and Emily Rachfal
+// Modified from D.S. Malik
+// 
+// class binaryTree
+// Includes definitions of member functions in this template class
+// **********************************************************
+
 #ifndef H_binaryTree
 #define H_binaryTree
 
@@ -40,7 +47,6 @@ public:
       //Function to do a preorder traversal of the binary tree.
     void postorderTraversal() const;
       //Function to do a postorder traversal of the binary tree.
-
     int treeHeight() const;
       //Returns the height of the binary tree.
     int treeNodeCount() const;
@@ -52,7 +58,7 @@ public:
       //Postcondition: root = NULL;
     void treeSwapSubtrees();
       // swaps all left and right subtrees of binary tree
-    int treeSingleParent();
+    int treeSingleParent() const;
       // Returns number of nodes in binary tree with only one child
 
     binaryTreeType(const binaryTreeType<elemType>& otherTree); 
@@ -141,18 +147,6 @@ template <class elemType>
 int binaryTreeType<elemType>::treeHeight() const
 {
     return height(root);
-}
-
-template <class elemType>
-int binaryTreeType<elemType>::treeNodeCount() const
-{
-    return nodeCount(root);
-}
-
-template <class elemType>
-int binaryTreeType<elemType>::treeLeavesCount() const
-{
-    return leavesCount(root);
 }
 
 template <class elemType>
@@ -245,7 +239,19 @@ void  binaryTreeType<elemType>::destroyTree()
 // ADDED ***********************
 
 template <class elemType>
-void binaryTreeType<elemType>::treeSwapSubtrees() const
+int binaryTreeType<elemType>::treeNodeCount() const
+{
+    return nodeCount(root);
+}
+
+template <class elemType>
+int binaryTreeType<elemType>::treeLeavesCount() const
+{
+    return leavesCount(root);
+}
+
+template <class elemType>
+void binaryTreeType<elemType>::treeSwapSubtrees()
 {
     swapSubtrees(root);
 }
@@ -315,7 +321,7 @@ int binaryTreeType<elemType>::max(int x, int y) const
 template <class elemType>
 int binaryTreeType<elemType>::nodeCount(binaryTreeNode<elemType> *p) const
 {
-    result = 0;
+    int result = 0;
     if (p != NULL)
     {
         result += nodeCount(p->llink) + nodeCount(p->rlink) + 1;
@@ -326,7 +332,7 @@ int binaryTreeType<elemType>::nodeCount(binaryTreeNode<elemType> *p) const
 template <class elemType>
 int binaryTreeType<elemType>::leavesCount(binaryTreeNode<elemType> *p) const
 {
-    result = 0;
+    int result = 0;
     if (p != NULL)
     {
         if (p->llink == NULL && p->rlink == NULL){
@@ -341,20 +347,20 @@ int binaryTreeType<elemType>::leavesCount(binaryTreeNode<elemType> *p) const
 template <class elemType>
 void binaryTreeType<elemType>::swapSubtrees(binaryTreeNode<elemType> *p) const
 {
-    binaryTreeNode<elemType> *temp = p->llink;
 
-    if (p != NULL){
-      p->llink = p->rlink;
-      p->rlink = temp;
-      swapSubtrees(p->llink);
-      swapSubtrees(p->rlink);
-    } 
+  if (p != NULL){
+    binaryTreeNode<elemType> *temp = p->llink;
+    p->llink = p->rlink;
+    p->rlink = temp;
+    swapSubtrees(p->llink);
+    swapSubtrees(p->rlink);
+  } 
 }
 
 template <class elemType>
 int binaryTreeType<elemType>::singleParent(binaryTreeNode<elemType> *p) const
 {
-    numSingleParents = 0;
+    int numSingleParents = 0;
     if (p != NULL)
     {
         if ((p->llink == NULL && p->rlink != NULL) 

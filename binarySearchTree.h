@@ -99,8 +99,9 @@ void bSearchTreeType<elemType>::insert(const elemType& insertItem)
             if (current->info == insertItem)
             {
                 cerr << "The insert item is already in the list-";
-                cerr << "duplicates are not allowed."
-                     << insertItem << endl;
+                cerr << "duplicates are not allowed.\n"
+                     //<< insertItem 
+                     << endl;
                 return;
             }
             else if (current->info > insertItem)
